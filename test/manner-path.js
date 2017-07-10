@@ -37,3 +37,14 @@ test('should execute dynamic path', assert => {
   })
   handler('/user')
 })
+
+
+test('should execute dynamic path with static root', assert => {
+  assert.plan(1)
+  const handler = path({
+    '/user/:type': () => {
+      assert.ok('path executed')
+    }
+  })
+  handler('/user/hello')
+})
