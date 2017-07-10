@@ -5,16 +5,18 @@
 [![Downloads](https://img.shields.io/npm/dm/manner-path.svg)](http://npm-stat.com/charts.html?package=manner-path)
 [![guidelines](https://tether.github.io/contribution-guide/badge-guidelines.svg)](https://github.com/tether/contribution-guide)
 
-Express-style path to regexp handler for manner services.
+Express-style path to regexp handler for [manner](https://github.com/tether/manner) routes.
 
 ## Usage
 
 ```js
-const http = require('http')
 const path = require('manner-path')
 const handler = path({
   '/': () => {},
-  '/:name': () => {},
+  '/:name': (params) => {
+    console.log(params.name)
+    // => olivier
+  },
   '/find': () => {}
 }, '/user')
 
@@ -37,9 +39,9 @@ For support, bug reports and or feature requests please make sure to read our
 
 ## Contribution
 
-The open source community is very important to us. If you want to participate to this repository, please make sure to read our <a href="https://github.com/tether/contribution-guide" target="_blank">guideline</a> before making any pull request. If you have any related project, please let everyone know in our wiki.
-## License
+The open source community is very important to us. If you want to participate to this repository, please make sure to read our <a href="https://github.com/tether/contribution-guide" target="_blank">guidelines</a> before making any pull request. If you have any related project, please let everyone know in our wiki.
 
+## License
 
 The MIT License (MIT)
 
