@@ -2,7 +2,7 @@
 {
   "name": "manner-path",
   "version": "1.0.0",
-  "description": "",
+  "description": "Express-style path to regexp handler for manner services.",
   "main": "index.js",
   "scripts": {
     "test": "tape test/*.js"
@@ -12,7 +12,10 @@
     "url": "git+https://github.com/tether/manner-path.git"
   },
   "keywords": [
-    "tether"
+    "express",
+    "manner",
+    "router",
+    "path"
   ],
   "author": "Petrofeed Inc",
   "license": "MIT",
@@ -24,4 +27,3 @@
     "tape": "*"
   }
 }
-  

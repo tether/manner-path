@@ -1,17 +1,24 @@
-
 # Manner-Path
 
-[![Build Status](https://travis-ci.org/petrofeed/manner-path.svg?branch=master)](https://travis-ci.org/petrofeed/manner-path)
+[![Build Status](https://travis-ci.org/tether/manner-path.svg?branch=master)](https://travis-ci.org/tether/manner-path)
 [![NPM](https://img.shields.io/npm/v/manner-path.svg)](https://www.npmjs.com/package/manner-path)
 [![Downloads](https://img.shields.io/npm/dm/manner-path.svg)](http://npm-stat.com/charts.html?package=manner-path)
 [![guidelines](https://tether.github.io/contribution-guide/badge-guidelines.svg)](https://github.com/tether/contribution-guide)
 
-This is a simple description.
+Express-style path to regexp handler for manner services.
 
 ## Usage
 
 ```js
+const http = require('http')
+const path = require('manner-path')
+const handler = path('/user', {
+  '/': () => {},
+  '/:name': () => {},
+  '/find': () => {}
+})
 
+handler('/user/olivier')
 ```
 
 ## Installation
@@ -43,5 +50,3 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-  
-  
