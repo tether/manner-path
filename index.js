@@ -23,7 +23,8 @@ module.exports = function (obj) {
         // const level = params.length - 1
         dynamicRoutes.push({
           re: match,
-          fn: obj[path]
+          fn: obj[path],
+          keys: keys
         })
         // if (level > keys.length) {
         //   console.log('whaaaat')
@@ -38,7 +39,15 @@ module.exports = function (obj) {
     else {
       dynamicRoutes.map(layer => {
         const match = layer.re.exec(url)
-        if (match) layer.fn()
+        console.log(match, layer.keys)
+        if (match) {
+          const params = {}
+          layer.keys.map((key, idx) => {
+            const param = match[idx + 1]
+            if (param) params[key.name] = param
+          })
+          layer.fn(params)
+        }
       })
       // const level = url.split('/').length - 1
       // dynamicRoutes[level]()

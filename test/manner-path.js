@@ -48,3 +48,65 @@ test('should execute dynamic path with static root', assert => {
   })
   handler('/user/hello')
 })
+
+test('should pass params /:foo', assert => {
+  assert.plan(1)
+  const handler = path({
+    '/:foo': (params) => {
+      assert.deepEqual(params, {
+        foo: 'hello'
+      })
+    }
+  })
+  handler('/hello')
+})
+
+test('should pass params /:foo/bar', assert => {
+  assert.plan(1)
+  const handler = path({
+    '/:foo/bar': (params) => {
+      assert.deepEqual(params, {
+        foo: 'hello'
+      })
+    }
+  })
+  handler('/hello/bar')
+})
+
+test('should pass params /:foo/bar/:boop', assert => {
+  assert.plan(1)
+  const handler = path({
+    '/:foo/bar/:boop': (params) => {
+      assert.deepEqual(params, {
+        foo: 'hello',
+        boop: 'world'
+      })
+    }
+  })
+  handler('/hello/bar/world')
+})
+
+test('should pass params /:foo/bar/:boop?', assert => {
+  assert.plan(1)
+  const handler = path({
+    '/:foo/bar/:boop?': (params) => {
+      assert.deepEqual(params, {
+        foo: 'hello'
+      })
+    }
+  })
+  handler('/hello/bar')
+})
+
+test('should pass params /:foo/bar/:boop*', assert => {
+  assert.plan(1)
+  const handler = path({
+    '/:foo/bar/:boop?': (params) => {
+      assert.deepEqual(params, {
+        foo: 'hello',
+        boop: ['world', 'beep']
+      })
+    }
+  })
+  handler('/hello/bar/world/beep')
+})
