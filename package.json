@@ -1,4 +1,3 @@
-
 {
   "name": "manner-path",
   "version": "1.0.0",
@@ -25,5 +24,8 @@
   "homepage": "https://github.com/tether/manner-path#readme",
   "devDependencies": {
     "tape": "*"
+  },
+  "dependencies": {
+    "path-to-regexp": "^1.7.0"
   }
 }

@@ -12,11 +12,11 @@ Express-style path to regexp handler for manner services.
 ```js
 const http = require('http')
 const path = require('manner-path')
-const handler = path('/user', {
+const handler = path({
   '/': () => {},
   '/:name': () => {},
   '/find': () => {}
-})
+}, '/user')
 
 handler('/user/olivier')
 ```

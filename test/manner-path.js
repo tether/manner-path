@@ -4,10 +4,14 @@
  */
 
 const test = require('tape')
+const path = require('..')
 
-test('this is an example', assert => {
+test('should execute root path', assert => {
   assert.plan(1)
-  assert.equal(1 + 2, 3)
+  const handler = path({
+    '/': () => {
+      assert.ok('path executed')
+    }
+  })
+  handler('/')
 })
-
-  
