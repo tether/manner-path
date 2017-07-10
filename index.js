@@ -49,22 +49,24 @@ module.exports = function (obj, prefix = '') {
     let handler = staticRoutes[url]
     if (handler) handler()
     else {
-      dynamicRoutes.map(layer => {
-        const match = layer.re.exec(url)
-        if (match) {
-          const params = {}
-          layer.keys.map((key, idx) => {
-            let param = match[idx + 1]
-            if (param) {
-              param = decodeURIComponent(param)
-              if (key.repeat) param = param.split(key.delimiter)
-              params[key.name] = param
+     for (var i = 0, l = dynamicRoutes.length; i < l; i++) {
+       const layer = dynamicRoutes[i]
+       const match = layer.re.exec(url)
+       if (match) {
+         const params = {}
+         layer.keys.map((key, idx) => {
+           let param = match[idx + 1]
+           if (param) {
+             param = decodeURIComponent(param)
+             if (key.repeat) param = param.split(key.delimiter)
+             params[key.name] = param
 
-            }
-          })
-          layer.fn(params)
-        }
-      })
+           }
+         })
+         layer.fn(params)
+         break
+       }
+     }
       // const level = url.split('/').length - 1
       // dynamicRoutes[level]()
     }
