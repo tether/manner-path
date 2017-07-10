@@ -3,9 +3,19 @@
  */
 
 const regexp = require('path-to-regexp')
+
+
 /**
- * This is a simple description.
+ * Create path router.
  *
+ *
+ * Example
+ *
+ *  ```js
+ *  route()
+ *  ```
+ * @param {Object} obj
+ * @return {Function}
  * @api public
  */
 
@@ -39,12 +49,16 @@ module.exports = function (obj) {
     else {
       dynamicRoutes.map(layer => {
         const match = layer.re.exec(url)
-        console.log(match, layer.keys)
         if (match) {
           const params = {}
           layer.keys.map((key, idx) => {
-            const param = match[idx + 1]
-            if (param) params[key.name] = param
+            let param = match[idx + 1]
+            if (param) {
+              param = decodeURIComponent(param)
+              if (key.repeat) param = param.split(key.delimiter)
+              params[key.name] = param
+
+            }
           })
           layer.fn(params)
         }
