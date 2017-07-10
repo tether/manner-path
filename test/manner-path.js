@@ -6,7 +6,7 @@
 const test = require('tape')
 const path = require('..')
 
-test('should execute root path', assert => {
+test('should execute root static path', assert => {
   assert.plan(1)
   const handler = path({
     '/': () => {
@@ -14,4 +14,15 @@ test('should execute root path', assert => {
     }
   })
   handler('/')
+})
+
+
+test('should execute static path', assert => {
+  assert.plan(1)
+  const handler = path({
+    '/user': () => {
+      assert.ok('path executed')
+    }
+  })
+  handler('/user')
 })
