@@ -19,13 +19,15 @@ const regexp = require('path-to-regexp')
  * @api public
  */
 
-module.exports = function (obj) {
+module.exports = function (obj, prefix = '') {
   const staticRoutes = {}
   const dynamicRoutes = []
   Object
     .keys(obj)
     .map(path => {
       const keys = []
+      const url = path
+      path = prefix + path
       const match = regexp(path, keys)
       if (!keys.length) staticRoutes[path] = obj[path]
       else {
@@ -33,7 +35,7 @@ module.exports = function (obj) {
         // const level = params.length - 1
         dynamicRoutes.push({
           re: match,
-          fn: obj[path],
+          fn: obj[url],
           keys: keys
         })
         // if (level > keys.length) {

@@ -144,3 +144,15 @@ test('should trigger if url can not be decoded', assert => {
     assert.ok('error trigerred')
   }
 })
+
+test('should prefix routes', assert => {
+  assert.plan(1)
+  const handler = path({
+    '/:type': (params) => {
+      assert.deepEqual(params, {
+        type: 'hello'
+      })
+    }
+  }, '/user')
+  handler('/user/hello')
+})
