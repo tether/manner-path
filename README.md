@@ -13,14 +13,14 @@ Express-style path to regexp handler for [manner](https://github.com/tether/mann
 const path = require('manner-path')
 const handler = path({
   '/': () => {},
-  '/:name': (params) => {
-    console.log(params.name)
-    // => olivier
+  '/:name': () => {
+    console.log('hello')
   },
   '/find': () => {}
 }, '/user')
 
 handler('/user/olivier')
+// => {params: {name: 'olivier'}, arg: () => {console.log('hello')}}
 ```
 
 ## Installation
