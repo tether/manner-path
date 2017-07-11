@@ -47,8 +47,11 @@ module.exports = function (obj, prefix = '') {
     })
   return (url) => {
     let handler = staticRoutes[url]
-    if (handler) handler()
-    else {
+    if (handler) {
+      return {
+        arg: handler
+      }
+    } else {
      for (var i = 0, l = dynamicRoutes.length; i < l; i++) {
        const layer = dynamicRoutes[i]
        const match = layer.re.exec(url)
@@ -63,7 +66,10 @@ module.exports = function (obj, prefix = '') {
 
            }
          })
-         layer.fn(params)
+         return {
+           arg: layer.fn,
+           params: params
+         }
          break
        }
      }

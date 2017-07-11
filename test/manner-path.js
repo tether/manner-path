@@ -8,128 +8,124 @@ const path = require('..')
 
 test('should execute root static path', assert => {
   assert.plan(1)
+  const fn = () => {}
   const handler = path({
-    '/': () => {
-      assert.ok('path executed')
-    }
+    '/': fn
   })
-  handler('/')
+  const result = handler('/')
+  assert.equal(result.arg, fn)
 })
 
 
 test('should execute static path', assert => {
   assert.plan(1)
+  const fn = () => {}
   const handler = path({
-    '/user': () => {
-      assert.ok('path executed')
-    }
+    '/user': fn
   })
-  handler('/user')
+  const result = handler('/user')
+  assert.equal(result.arg, fn)
 })
 
 
 test('should execute dynamic path', assert => {
-  assert.plan(1)
+  assert.plan(2)
+  const fn = () => {}
   const handler = path({
-    '/:type': () => {
-      assert.ok('path executed')
-    }
+    '/:type': fn
   })
-  handler('/user')
+  const result = handler('/user')
+  assert.equal(result.arg, fn)
+  assert.deepEqual(result.params, {
+    type: 'user'
+  })
 })
 
 
 test('should execute dynamic path with static root', assert => {
-  assert.plan(1)
+  assert.plan(2)
+  const fn = () => {}
   const handler = path({
-    '/user/:type': () => {
-      assert.ok('path executed')
-    }
+    '/user/:type': fn
   })
-  handler('/user/hello')
-})
-
-
-test('should pass params /:foo', assert => {
-  assert.plan(1)
-  const handler = path({
-    '/:foo': (params) => {
-      assert.deepEqual(params, {
-        foo: 'hello'
-      })
-    }
+  const result = handler('/user/hello')
+  assert.equal(result.arg, fn)
+  assert.deepEqual(result.params, {
+    type: 'hello'
   })
-  handler('/hello')
 })
 
 
 test('should pass params /:foo/bar', assert => {
-  assert.plan(1)
+  assert.plan(2)
+  const fn = () => {}
   const handler = path({
-    '/:foo/bar': (params) => {
-      assert.deepEqual(params, {
-        foo: 'hello'
-      })
-    }
+    '/:foo/bar': fn
   })
-  handler('/hello/bar')
+  const result = handler('/hello/bar')
+  assert.equal(result.arg, fn)
+  assert.deepEqual(result.params, {
+    foo: 'hello'
+  })
 })
 
 
 test('should pass params /:foo/bar/:boop', assert => {
-  assert.plan(1)
+  assert.plan(2)
+  const fn = () => {}
   const handler = path({
-    '/:foo/bar/:boop': (params) => {
-      assert.deepEqual(params, {
-        foo: 'hello',
-        boop: 'world'
-      })
-    }
+    '/:foo/bar/:boop': fn
   })
-  handler('/hello/bar/world')
+  const result = handler('/hello/bar/world')
+  assert.equal(result.arg, fn)
+  assert.deepEqual(result.params, {
+    foo: 'hello',
+    boop: 'world'
+  })
 })
 
 
 test('should pass params /:foo/bar/:boop?', assert => {
-  assert.plan(1)
+  assert.plan(2)
+  const fn = () => {}
   const handler = path({
-    '/:foo/bar/:boop?': (params) => {
-      assert.deepEqual(params, {
-        foo: 'hello'
-      })
-    }
+    '/:foo/bar/:boop?': fn
   })
-  handler('/hello/bar')
+  const result = handler('/hello/bar')
+  assert.equal(result.arg, fn)
+  assert.deepEqual(result.params, {
+    foo: 'hello'
+  })
 })
 
 
 test('should pass params /:foo/bar/:boop*', assert => {
-  assert.plan(1)
+  assert.plan(2)
+  const fn = () => {}
   const handler = path({
-    '/:foo/bar/:boop*': (params) => {
-      assert.deepEqual(params, {
-        foo: 'hello',
-        boop: ['world', 'beep']
-      })
-    }
+    '/:foo/bar/:boop*': fn
   })
-  handler('/hello/bar/world/beep')
+  const result = handler('/hello/bar/world/beep')
+  assert.equal(result.arg, fn)
+  assert.deepEqual(result.params, {
+    foo: 'hello',
+    boop: ['world', 'beep']
+  })
 })
 
 
 test('should pass params /:foo/bar/:boop+', assert => {
   assert.plan(2)
+  const fn = () => {}
   const handler = path({
-    '/:foo/bar/:boop+': (params) => {
-      assert.deepEqual(params, {
-        foo: 'hello',
-        boop: ['world', 'beep']
-      })
-    }
+    '/:foo/bar/:boop+': fn
   })
-  handler('/hello/bar')
-  assert.ok('params not executed')
-  handler('/hello/bar/world/beep')
+  const result = handler('/hello/bar/world/beep')
+  assert.equal(result.arg, fn)
+  assert.deepEqual(result.params, {
+    foo: 'hello',
+    boop: ['world', 'beep']
+  })
 })
 
 
@@ -146,13 +142,14 @@ test('should trigger if url can not be decoded', assert => {
 })
 
 test('should prefix routes', assert => {
-  assert.plan(1)
+  assert.plan(2)
+  const fn = () => {}
   const handler = path({
-    '/:type': (params) => {
-      assert.deepEqual(params, {
-        type: 'hello'
-      })
-    }
+    '/:type': fn
   }, '/user')
-  handler('/user/hello')
+  const result = handler('/user/hello')
+  assert.equal(result.arg, fn)
+  assert.deepEqual(result.params, {
+    type: 'hello'
+  })
 })
