@@ -8,12 +8,6 @@ const regexp = require('path-to-regexp')
 /**
  * Create path router.
  *
- *
- * Example
- *
- *  ```js
- *  route()
- *  ```
  * @param {Object} obj
  * @return {Function}
  * @api public
